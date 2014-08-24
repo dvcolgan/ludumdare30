@@ -14,9 +14,11 @@ ModelImporter:
     2300000: log
     2300002: stump
     2300004: tree
+    2300006: //RootNode
     3300000: log
     3300002: stump
     3300004: tree
+    3300006: //RootNode
     4300000: tree
     4300002: stump
     4300004: log
