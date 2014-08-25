@@ -3,11 +3,11 @@ using System.Collections;
 
 public class PushableBehavior : MonoBehaviour
 {
-		protected GameObject otherEntities;
+		GameObject[] otherEntities;
 	
-		protected void Start ()
+		void Start ()
 		{
-				otherEntities = (GameObject)this.transform.parent.gameObject;
+				otherEntities = GameObject.FindGameObjectsWithTag ("LevelObject");
 		}
 
 		public void MoveToSquare (Vector3 location)
@@ -25,8 +25,7 @@ public class PushableBehavior : MonoBehaviour
     
 		GameObject GetObjectInSquare (float x, float z)
 		{
-				foreach (Transform child in otherEntities.transform) {
-						GameObject obstacle = child.gameObject;
+				foreach (GameObject obstacle in otherEntities) {
 						if (obstacle == gameObject)
 								continue;
 
@@ -40,8 +39,7 @@ public class PushableBehavior : MonoBehaviour
         
 				return null;
 		}
-
-    
+	
 		public void PushTo (Vector3 newLocation)
 		{
 				Vector3 oldLocation = transform.localPosition;
@@ -60,6 +58,7 @@ public class PushableBehavior : MonoBehaviour
 										otherObject.SendMessage ("StepOn", SendMessageOptions.DontRequireReceiver);
 								}
 								MoveToSquare (newLocation);
+
 						} else if (otherObject != null) {
 								// Otherwise if that object is pushable, push it instead
 								PushableBehavior pushable = otherObject.GetComponent<PushableBehavior> ();
@@ -70,7 +69,8 @@ public class PushableBehavior : MonoBehaviour
 										pushable.PushTo (otherObjectNewLocation);
 								} else if (otherObject.GetComponent<HoleBehavior> ()) {
 										if (GetComponent<FallableBehavior> ()) {
-
+												otherObject.SendMessage ("Fill");
+												Destroy (gameObject);
 										}
 								}
 						}
