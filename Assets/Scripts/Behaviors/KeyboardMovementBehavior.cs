@@ -7,9 +7,7 @@ public class KeyboardMovementBehavior : MonoBehaviour
 		{
 
 				if (transform.localPosition.x == Constants.PAGE_WIDTH - 1 && Input.GetKeyDown (KeyCode.RightArrow)) {
-						GameController.instance.LoadNextLevel (transform.localPosition.z);
-				} else if (transform.localPosition.x == 0 && Input.GetKeyDown (KeyCode.LeftArrow)) {
-						GameController.instance.LoadPreviousLevel (transform.localPosition.z);
+						GameController.instance.LoadNextLevel ();
 				} else {
 						float newX = transform.localPosition.x;
 						float newZ = transform.localPosition.z;
