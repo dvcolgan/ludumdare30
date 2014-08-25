@@ -7,8 +7,14 @@ public class GateBehavior : MonoBehaviour
 		void Open ()
 		{
 				Destroy (GetComponent<CollidableBehavior> ());
-				Vector3 pos = transform.position;
-				pos.y -= 0.8f;
-				transform.position = pos;
+				iTween.MoveBy (gameObject, iTween.Hash ("z", -0.8f, "easeType", "easeOut", "time", .1f));
+		}
+
+	
+		void Close ()
+		{
+				Destroy (GetComponent<CollidableBehavior> ());
+				iTween.MoveBy (gameObject, iTween.Hash ("z", 0.8f, "easeType", "easeOut", "time", .1f));
+				gameObject.AddComponent ("CollidableBehavior");
 		}
 }

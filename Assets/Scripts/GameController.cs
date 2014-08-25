@@ -27,6 +27,8 @@ public class GameController : MonoBehaviour
 		
 		public Texture2D[] levelImages;
 
+		public bool playerIsMoving = false;
+
 		float playerStartX = 0;
 		float playerStartZ = 0;
 
@@ -95,6 +97,19 @@ public class GameController : MonoBehaviour
 				}
 		}
 
+	
+		void RandomlyOrientObject (GameObject obj)
+		{
+				float rotationAmount = (float)Random.Range (0, 360);
+				obj.transform.Rotate (new Vector3 (0, rotationAmount, 0), Space.World);
+		}
+
+		void RandomlyOrientObjectSnapped (GameObject obj)
+		{
+				float rotationAmount = Random.Range (0, 4) * 90f;
+				obj.transform.Rotate (new Vector3 (0, rotationAmount, 0), Space.World);
+		}
+
 		void LoadLevelFromTexture (Texture2D levelImage)
 		{
 				int width = 20;
@@ -111,67 +126,79 @@ public class GameController : MonoBehaviour
 								int blue = (int)(pixel.b * 255);
 								int alpha = (int)(pixel.a * 255);
 
+								GameObject obj = null;
+
 								if (red == 0 && green == 127 && blue == 14) {
-										GameObject obj = Instantiate (treePrefab, new Vector3 (x, -1, y), Quaternion.identity) as GameObject;
+										obj = Instantiate (treePrefab, new Vector3 (x, -1, y), Quaternion.identity) as GameObject;
 										obj.transform.Rotate (-90, 0, 0);
+										RandomlyOrientObject (obj);
 
 								} else if (red == 127 && green == 51 && blue == 0) {
-										GameObject obj = Instantiate (stumpPrefab, new Vector3 (x, -1, y), Quaternion.identity) as GameObject;
+										obj = Instantiate (stumpPrefab, new Vector3 (x, -1, y), Quaternion.identity) as GameObject;
 										obj.transform.Rotate (-90, 0, 0);
+										RandomlyOrientObject (obj);
 							
 								} else if (red == 255 && green == 178 && blue == 127) {
-										GameObject obj = Instantiate (cratePrefab, new Vector3 (x, -.5f, y), Quaternion.identity) as GameObject;
+										obj = Instantiate (cratePrefab, new Vector3 (x, -.5f, y), Quaternion.identity) as GameObject;
 										obj.transform.Rotate (-90, 0, 0);
+										RandomlyOrientObjectSnapped (obj);
 
 								} else if (red == 72 && green == 0 && blue == 255) {
-										GameObject obj = Instantiate (shroomPrefab, new Vector3 (x, -1, y), Quaternion.identity) as GameObject;
+										obj = Instantiate (shroomPrefab, new Vector3 (x, -1, y), Quaternion.identity) as GameObject;
 										obj.transform.Rotate (-90, 0, 0);
+										RandomlyOrientObject (obj);
 								
 								} else if (red == 64 && green == 64 && blue == 64) {
-										GameObject obj = Instantiate (holePrefab, new Vector3 (x, -.94f, y), Quaternion.identity) as GameObject;
+										obj = Instantiate (holePrefab, new Vector3 (x, -.94f, y), Quaternion.identity) as GameObject;
 										obj.transform.Rotate (-90, 0, 0);
+										RandomlyOrientObjectSnapped (obj);
 								
 								} else if (red == 127 && green == 89 && blue == 63) {
-										GameObject obj = Instantiate (stonePrefab, new Vector3 (x, -.5f, y), Quaternion.identity) as GameObject;
+										obj = Instantiate (stonePrefab, new Vector3 (x, -.5f, y), Quaternion.identity) as GameObject;
 										obj.transform.Rotate (90, 0, 0);
+										RandomlyOrientObjectSnapped (obj);
 								
 								} else if (red == 128 && green == 128 && blue == 128) {
-										GameObject obj = Instantiate (crackedStoneFloorPrefab, new Vector3 (x, -.94f, y), Quaternion.identity) as GameObject;
+										obj = Instantiate (crackedStoneFloorPrefab, new Vector3 (x, -.94f, y), Quaternion.identity) as GameObject;
 										obj.transform.Rotate (0, 0, 0);
+										RandomlyOrientObjectSnapped (obj);
 
 								} else if (red == 0 && green == 255 && blue == 255) {
-										GameObject obj = Instantiate (solidIceFloorPrefab, new Vector3 (x, -.94f, y), Quaternion.identity) as GameObject;
+										obj = Instantiate (solidIceFloorPrefab, new Vector3 (x, -.94f, y), Quaternion.identity) as GameObject;
 										obj.transform.Rotate (-90, 0, 0);
+										RandomlyOrientObjectSnapped (obj);
 
 								} else if (red == 63 && green == 127 && blue == 127) {
-										GameObject obj = Instantiate (crackedIceFloorPrefab, new Vector3 (x, -.94f, y), Quaternion.identity) as GameObject;
+										obj = Instantiate (crackedIceFloorPrefab, new Vector3 (x, -.94f, y), Quaternion.identity) as GameObject;
 										//obj.transform.Rotate (0, 0, 0);
+										RandomlyOrientObjectSnapped (obj);
 
 								} else if (red == 255 && green == 0 && blue == 0) {
 										playerStartX = x;
 										playerStartZ = y;
-										GameObject player = Instantiate (playerPrefab, new Vector3 (playerStartX, 0, playerStartZ), Quaternion.identity) as GameObject;   
+										obj = Instantiate (playerPrefab, new Vector3 (playerStartX, 0, playerStartZ), Quaternion.identity) as GameObject;   
 
 								} else if (red == 255 && green == 106 && blue == 0) { // upright log
-										GameObject obj = Instantiate (logPrefab, new Vector3 (x, -.5f, y), Quaternion.identity) as GameObject;
+										obj = Instantiate (logPrefab, new Vector3 (x, -.5f, y), Quaternion.identity) as GameObject;
 										obj.SendMessage ("OrientLogUpright");
 								} else if (red == 211 && green == 84 && blue == 0) { // horizontal log
-										GameObject obj = Instantiate (logPrefab, new Vector3 (x, -.5f, y), Quaternion.identity) as GameObject;
+										obj = Instantiate (logPrefab, new Vector3 (x, -.5f, y), Quaternion.identity) as GameObject;
 										obj.SendMessage ("OrientLogHorizontally");
 								} else if (red == 165 && green == 115 && blue == 81) { // vertical log
-										GameObject obj = Instantiate (logPrefab, new Vector3 (x, -.5f, y), Quaternion.identity) as GameObject;
+										obj = Instantiate (logPrefab, new Vector3 (x, -.5f, y), Quaternion.identity) as GameObject;
 										obj.SendMessage ("OrientLogVertically");
 
 								} else if (red == 127 && green == 0 && blue == 0) {
-										GameObject obj = Instantiate (buttonPrefab, new Vector3 (x, -.94f, y), Quaternion.identity) as GameObject;
+										obj = Instantiate (buttonPrefab, new Vector3 (x, -.94f, y), Quaternion.identity) as GameObject;
 										obj.transform.Rotate (-90, 0, 0);
+										RandomlyOrientObject (obj);
 
 								} else if (red == 127 && green == 106 && blue == 0) {
-										GameObject obj = Instantiate (gatePrefab, new Vector3 (x, -1f, y), Quaternion.identity) as GameObject;
+										obj = Instantiate (gatePrefab, new Vector3 (x, -1f, y), Quaternion.identity) as GameObject;
 										obj.transform.Rotate (-90, 0, 0);
 
 								} else if (red == 127 && green == 116 && blue == 63) {
-										GameObject obj = Instantiate (gatePrefab, new Vector3 (x, -1f, y), Quaternion.identity) as GameObject;
+										obj = Instantiate (gatePrefab, new Vector3 (x, -1f, y), Quaternion.identity) as GameObject;
 										obj.transform.Rotate (-90, 90, 0);
 								}
 						}
