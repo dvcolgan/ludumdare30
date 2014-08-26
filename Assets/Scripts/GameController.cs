@@ -86,6 +86,8 @@ public class GameController : MonoBehaviour
 				LoadLevelFromTexture (levelImages [currentLevelNumber]);
 
 				CreatePageText (currentLevelNumber);
+
+				AudioController.levelNum = currentLevelNumber;
 				yield return null;
 				
 		}
