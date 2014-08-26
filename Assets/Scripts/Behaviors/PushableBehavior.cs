@@ -10,13 +10,16 @@ public class PushableBehavior : MonoBehaviour
 
 		public void MoveToSquare (Vector3 location)
 		{
-				/*
+				
 				Vector3 pos = transform.localPosition;
 				pos.x = location.x;
 				pos.z = location.z;
 				transform.localPosition = pos;
-				*/
 
+				iTween.ScaleTo (gameObject, iTween.Hash ("scale", new Vector3 (1f, 1f, 1.5f), "easeType", "easeIn", "time", .2f, "oncomplete", "DoneSquishing"));
+				
+        
+				/*
 				if (GetComponent<PlayerBehavior> ()) {
 						GameController.instance.playerIsMoving = true;
 						
@@ -24,7 +27,11 @@ public class PushableBehavior : MonoBehaviour
 				} else {
 						iTween.MoveTo (gameObject, iTween.Hash ("x", location.x, "z", location.z, "easeType", "easeIn", "time", .1f, "oncomplete", "DoneMoving"));
 				}
-        
+        */
+		}
+		void DoneSquishing ()
+		{
+				iTween.ScaleTo (gameObject, iTween.Hash ("scale", new Vector3 (1f, 1f, 1f), "easeType", "easeIn", "time", .2f));
 		}
 
 		void DoneMoving ()
@@ -60,10 +67,10 @@ public class PushableBehavior : MonoBehaviour
 	
 		public void PushTo (Vector3 newLocation)
 		{
-				if (GetComponent<PlayerBehavior> ()) {
-						if (GameController.instance.playerIsMoving)
-								return;
-				}
+				//if (GetComponent<PlayerBehavior> ()) {
+				//			if (GameController.instance.playerIsMoving)
+				//						return;
+				//			}
 				Vector3 oldLocation = transform.localPosition;
 
 				GameObject otherObject = GetObjectInSquare (newLocation.x, newLocation.z, true);

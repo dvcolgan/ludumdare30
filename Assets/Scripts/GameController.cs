@@ -43,43 +43,51 @@ public class GameController : MonoBehaviour
 		void Start ()
 		{
 				currentLevelNumber = startingLevelNumber;
-				LoadLevel (currentLevelNumber);
+				StartCoroutine ("LoadLevel");
 		}
 
 		public void LoadNextLevel ()
 		{
 				if (currentLevelNumber < levelImages.Length - 1) {
 						currentLevelNumber++;
-						LoadLevel (currentLevelNumber);
+						StartCoroutine ("LoadLevel");
 				}
 		}
 
 		public void ReloadLevel ()
 		{
-				LoadLevel (currentLevelNumber);
+				StartCoroutine ("LoadLevel");
 		}
 
 		public void LoadPreviousLevel ()
 		{
 				if (currentLevelNumber > 0) {
 						currentLevelNumber--;
-						LoadLevel (currentLevelNumber);
+						StartCoroutine ("LoadLevel");
 				}
 		}
 
 		void CreatePageText (int which)
 		{
-
+				TextMesh text = GameObject.FindGameObjectWithTag ("PageText").GetComponent <TextMesh> ();
+				text.text = Constants.bookText [which];
 		}
 
-		void LoadLevel (int which)
+		IEnumerator LoadLevel ()
 		{
+				
+			
+				
+				animation.Play ("PreviousPage");
+				yield return new WaitForSeconds (.5f);
 				foreach (GameObject obj in GameObject.FindGameObjectsWithTag("LevelObject")) {
 						Destroy (obj);
 				}
-				LoadLevelFromTexture (levelImages [which]);
+				LoadLevelFromTexture (levelImages [currentLevelNumber]);
 
-				CreatePageText (which);
+				CreatePageText (currentLevelNumber);
+				yield return null;
+				
 		}
 	
 		// Update is called once per frame

@@ -592,6 +592,8 @@ ModelImporter:
     2300184: WGT-VIS-thigh_pole_ik_R
     2300186: WGT-VIS-upper_arm_pole_ik_L
     2300188: WGT-VIS-upper_arm_pole_ik_R
+    2300190: Cube
+    2300192: mesh
     3300000: WGT-chest
     3300002: WGT-elbow_hose_L
     3300004: WGT-elbow_hose_R
@@ -687,6 +689,8 @@ ModelImporter:
     3300184: WGT-VIS-thigh_pole_ik_R
     3300186: WGT-VIS-upper_arm_pole_ik_L
     3300188: WGT-VIS-upper_arm_pole_ik_R
+    3300190: Cube
+    3300192: mesh
     4300082: WGT-palm_R
     4300084: WGT-palm_L
     4300086: WGT-hand_ik_R
@@ -716,11 +720,11 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
-    animationWrapMode: 0
+    animationWrapMode: 2
     extraExposedTransformPaths: []
     clipAnimations: []
     isReadable: 1
@@ -758,6 +762,6 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 1
+  animationType: 2
   additionalBone: 0
   userData: 

@@ -12,8 +12,9 @@ public class ButtonBehavior : MonoBehaviour
 
 						}
 				}
-
-				iTween.MoveBy (gameObject, iTween.Hash ("z", 0.09f, "easeType", "easeOut", "time", .1f));
+				Vector3 pos = transform.position;
+				pos.y += 0.09f;
+				transform.position = pos;
 		}
 
 		void StepOn ()
@@ -24,6 +25,8 @@ public class ButtonBehavior : MonoBehaviour
 								
 						}
 				}
-				iTween.MoveBy (gameObject, iTween.Hash ("z", -0.09f, "easeType", "easeOut", "time", .1f));
+				Vector3 pos = transform.position;
+				pos.y -= 0.09f;
+				transform.position = pos;
 		}
 }
